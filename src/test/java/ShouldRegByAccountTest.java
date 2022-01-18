@@ -1,36 +1,37 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byName;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+
 
 public class ShouldRegByAccountTest {
-
-    public static String generateDate(int days){
-        return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    }
-
+    String planingDate = DataGenerator.generateDate(3);
+    String newPlaningDate = DataGenerator.generateDate(5);
     @Test
     public void shouldRegByAccount() {
-     String planningDate = generateDate(4);
         open("http://localhost:9999");
-        $("[data-test-id='city'] .input__control").setValue("Вологда");
+        Configuration.holdBrowserOpen = true;
+        $("[data-test-id='city'] .input__control").setValue(DataGenerator.getCity());
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $("[data-test-id='date'] .input__control").setValue(String.valueOf(planningDate));
-        $("[data-test-id='name'] .input__control").setValue("Евгения Солнцева");
-        $x("//*[@name='phone']").setValue("+79117389427");
+        $("[data-test-id='date'] .input__control").setValue(DataGenerator.generateDate(3));
+        $("[data-test-id='name'] .input__control").setValue(DataGenerator.getName());
+        $x("//*[@name='phone']").setValue(DataGenerator.getPhone());
         $(".checkbox__box").click();
         $(".button__text").click();
-        $("[data-test-id='notification']").shouldHave(Condition.text("Встреча успешно забронирована на "+ planningDate ), Duration.ofSeconds(15)).shouldBe(visible);
+        $("[data-test-id='notification']").shouldHave(text("Встреча успешно забронирована на "+ planingDate), Duration.ofSeconds(15)).shouldBe(visible);
+        $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[data-test-id='date'] .input__control").setValue(DataGenerator.newPlanningDate(1));
+        $(".checkbox__box").click();
+        $(".button__text").click();
+        $("[data-test-id='success-notification']").shouldHave(text("Встреча успешно запланирована на " + newPlaningDate) , Duration.ofSeconds(15)).shouldBe(visible);
     }
-
-
 }
+
+
+
 
 
