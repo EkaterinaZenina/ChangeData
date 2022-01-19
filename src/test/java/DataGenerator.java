@@ -25,11 +25,11 @@ public class DataGenerator {
     }
 
     public static String getName() {
-        return faker.name().fullName();
+        return faker.name().name();
     }
 
     public static String getPhone() {
-        return faker.phoneNumber().phoneNumber();
+        return faker.numerify("+7##########");
     }
 
     public static String getCity() {

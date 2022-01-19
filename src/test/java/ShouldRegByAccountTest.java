@@ -25,8 +25,8 @@ public class ShouldRegByAccountTest {
         $("[data-test-id='notification']").shouldHave(text("Встреча успешно забронирована на "+ planingDate), Duration.ofSeconds(15)).shouldBe(visible);
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
         $("[data-test-id='date'] .input__control").setValue(DataGenerator.newPlanningDate(1));
-        $(".checkbox__box").click();
-        $(".button__text").click();
+        $$(".button").find(exactText("Запланировать")).click();
+        $$(".button__text").find(exactText("Перепланировать")).click();
         $("[data-test-id='success-notification']").shouldHave(text("Встреча успешно запланирована на " + newPlaningDate) , Duration.ofSeconds(15)).shouldBe(visible);
     }
 }
