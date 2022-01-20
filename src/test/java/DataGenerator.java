@@ -19,11 +19,6 @@ public class DataGenerator {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
-    public static String newPlanningDate(int plusDays) {
-        LocalDate newPlanningDate = today.plusDays(plusDays);
-        return formatter.format(newPlanningDate);
-    }
-
     public static String getName() {
         return faker.name().name();
     }
@@ -35,13 +30,12 @@ public class DataGenerator {
     public static String getCity() {
         String[] list = new String[]{"Омск", "Казань", "Томск", "Владивосток", "Архангельск",
                 "Мурманск", "Горно-Алтайск", "Череповец", "Чебоксары", "Хабаровск", "Иркутск", "Ростов-на-Дону",
-                "Махачкала", "Энгельс", "Туапсе", "Шлиссельбург", "Муром", "Белгород", "Саранск",
+                "Махачкала", "Белгород", "Саранск",
                 "Саратов", "Хабаровск", "Рязань", "Брянск", "Великий Новгород", "Курган", "Владимир", "Вологда", "Самара",
-                "Чебоксары", "Москва", "Санкт-Петербург", "Ульяновск", "Кострома", "Липецк", "Алушта", "Ялта", "Симферополь"};
+                "Чебоксары", "Москва", "Санкт-Петербург", "Ульяновск", "Кострома", "Липецк",  "Симферополь"};
         int city = new Random().nextInt(list.length);
         return list[city];
     }
 }
-
 
 
