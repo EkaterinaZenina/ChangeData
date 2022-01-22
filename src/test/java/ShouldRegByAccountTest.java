@@ -22,13 +22,13 @@ public class ShouldRegByAccountTest {
         $x("//*[@name='phone']").setValue(DataGenerator.getPhone());
         $(".checkbox__box").click();
         $("button.button").click();
-        $("[data-test-id='notification']").shouldHave(text("Встреча успешно забронирована на "+ planingDate), Duration.ofSeconds(15)).shouldBe(visible);
+        $("[data-test-id='success-notification']").shouldHave(text("Встреча успешно запланирована на " + planingDate), Duration.ofSeconds(15)).shouldBe(visible);
 
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue(DataGenerator.generateDate(5));
-        $("button.button").click();
-        $("button.button").click();
-        $("[data-test-id='success-notification']").shouldHave(text("Встреча успешно запланирована на " + DataGenerator.generateDate(5)), Duration.ofSeconds(15)).shouldBe(visible);
+        $("[data-test-id='date'] .input__control").setValue(DataGenerator.generateDate(6));
+        $$(".button").find(text("Запланировать")).click();
+        $$(".button__text").find(text("Перепланировать")).click();
+        $("[data-test-id='success-notification']").shouldHave(text("Встреча успешно запланирована на " + DataGenerator.generateDate(6)), Duration.ofSeconds(15)).shouldBe(visible);
     }
 }
 
