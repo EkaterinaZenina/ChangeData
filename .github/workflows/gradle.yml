@@ -25,7 +25,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
-      with:
-        arguments: build
+    - name: Install
+      run: java -jar ./artifacts/app-card-delivery.jar &
+    - name: BuildScript1
+      run: chmod +x gradlew
+    - name: BuildScript2
+      run: ./gradlew test --info -Dselenide.headless=true
